@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+
+    .course-details{
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+    }
+
+    .course-dates{
+        font-size: 11px;
+    }
+
+    .course_title{
+        border: 2px solid;
+        border-radius: 100px;
+        text-align: center;
+    }
+
+    .course-details{
+        padding-bottom: 10%;
+    }
+
+    .contact-form{
+        text-align: center;
+        border: 2px solid;
+        border-radius: 10px;
+    }
+
+    #join-button{
+        background-color: plum;
+        color: royalblue;
+        font-weight: bold;
+    }
+</style>
+
+<div class="course-card">
+    <div class="course_title">
+        <h3>{{course.title}}</h3>
+        <p class="course-dates">{{course.start_date|date:"M d, Y"}} - {{course.end_date|date:"M d, Y"}}</p>
+    </div>
+    
+    <div class="course-details">
+        <div class="course-description">
+            <h3>Description</h3>
+            {% if course.description %}
+            <p>{{course.description}}</p>
+            {% else %}
+            <p>No Description </p>
+            {% endif %}
+        </div>
+        <div class="course-reviews">
+            <h5>Reviews</h5>
+        </div>
+    </div>
+
+    <div class="contact-form">
+        <h3>Want to join this course?</h3>
+        {% if request.user.is_authenticated %}
+            <h5>Fill in the contact form</h5>
+            <form action="" METHOD="POST">
+                {% csrf_token %}
+                {{contact_form.as_p}}
+                <input id="join-button" type="submit" value="Join">
+            </form>
+        {% else %}
+            <button><a href="{% url 'login' %}">Sign in to continue</a></button>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

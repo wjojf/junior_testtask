@@ -1,0 +1,26 @@
+<style>
+    .navbar{
+        border: 2px solid;
+        border-radius: 20px;
+        display: flex;
+        justify-content: space-between;
+        padding-left: 5%;
+    }
+    .navbar-user{
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+
+<div class="navbar">
+    <a href="{% url 'home' %}">StudyBuddy</a>
+    <div class="navbar-user">
+        {% if request.user.is_authenticated%}
+        <small>Hello, {{request.user.username}}</small>
+        <small><a href="{% url 'logout' %}">Logout</a></small>
+        {% else %}
+        <small><a href="{%url 'login'%}">Login</a></small>
+        {% endif %}
+    </div>
+</div>

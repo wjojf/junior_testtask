@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    *{
+        font-family: 'Courier New';
+        color: white;
+    }
+
+    body{
+        height: 100vh;
+        background: rgb(203,91,113);
+        background: linear-gradient(164deg, rgba(203,91,113,1) 5%, rgba(191,187,158,1) 98%);
+    }
+
+     a{
+        color: darkviolet;
+    }
+
+</style>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to StudyBuddy!</title>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    {% block content %}
+    {% endblock content %}
+</body>
+
+</html>

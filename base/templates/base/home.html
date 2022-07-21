@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+{% block content %}
+    
+<style>
+
+    .wrapper{
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+    }
+    .search-button{
+        border: 10px;
+        font-weight: bold;
+        color: chocolate;
+        background-color: chartreuse;
+    }
+
+    .courses{
+        padding-left: 10%;
+    }
+
+    #date{
+        background-color: grey;
+        color: white;
+    }
+
+</style>
+
+<div class="wrapper">
+    <div class="searchbar">
+        <h1>Filter Courses</h1>
+        <form class="search-input" action="{% url 'home' %}">
+            <label for="course_q">
+                <input name="course_title_q" placeholder="Search for courses...">
+                <h5>
+                    Course Starts 
+                    <input id="date" name="course_starts_q" type="date" placeholder="Course starts">
+                </h5>
+                <hr>
+                <input type="Submit" value="Search" class="search-button">
+            </label>
+        </form>
+    </div>
+    <div class="courses">
+        <h1>Browse Courses</h1>
+        {% for course in courses %}
+            <h5><a href="{% url 'course' course.id%}">{{course}}</a></h5>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
