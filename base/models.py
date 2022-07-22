@@ -14,7 +14,7 @@ class Course(models.Model):
         return f'#{self.id} - {self.title}'
 
     class Meta:
-        ordering = ['start_date', 'end_date']
+        ordering = ['-start_date', '-end_date']
 
 
 class Participant(models.Model):

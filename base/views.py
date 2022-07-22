@@ -111,7 +111,7 @@ class CourseView(DetailView, FormView):
 class CreateCourseView(FormView):
     form_class = CourseCreationForm
     template_name = 'base/create-course.html'
-    success_url = 'home'
+    success_url = '/'
     
     def post(self, request, *args, **kwargs):
         
