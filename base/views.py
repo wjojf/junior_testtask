@@ -1,9 +1,8 @@
 from datetime import datetime
-from pydoc import describe
 from django.views.generic.detail import DetailView
 from django.views.generic import FormView
 from django.views.generic.list import ListView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, UpdateView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -11,6 +10,8 @@ from django.contrib.auth.models import User
 from base.models import Course, Participant
 from base.forms import ParticipantForm, CourseCreationForm
 from django.db.models import Q 
+from django.http import HttpResponse
+from django.urls import reverse
 
 
 DEFAULT_DATE = datetime(1970,1,1,00,00,00)
@@ -69,6 +70,7 @@ class HomeView(ListView):
     model = Course
     context_object_name = 'courses'
     
+
     def get_queryset(self):
         course_title_q = self.request.GET.get('course_title_q') if self.request.GET.get('course_title_q') else ''
         course_starts_q = self.request.GET.get('course_starts_q') if self.request.GET.get('course_starts_q') else DEFAULT_DATE
@@ -94,6 +96,7 @@ class CourseView(DetailView, FormView):
         context['contact_form'] = ParticipantForm()
         
         return context
+    
 
     def post(self, request, *args, **kwargs):
         participant, created = Participant.objects.get_or_create(
@@ -121,3 +124,23 @@ class CreateCourseView(FormView):
         )
 
         return redirect('home')
+
+
+class UpdateCourseView(UpdateView):
+    model = Course
+    pk_url_kwarg = 'course_id'
+    form_class = CourseCreationForm
+    template_name = 'base/update-course.html'
+    success_url = '/'
+
+
+    def get(self, request, *args, **kwargs):
+        
+        if request.user != self.get_object().host:
+            return HttpResponse('You are not the owner of the course')
+        
+        return super().get(request, *args, **kwargs)
+        
+        
+    
+        

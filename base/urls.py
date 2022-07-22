@@ -15,6 +15,7 @@ urlpatterns = [
         base_views.CourseView.as_view(),
         name='course'
     ),
-    path('create-course/', login_required(base_views.CreateCourseView.as_view(), login_url='login'), name='create-course')
+    path('create-course/', login_required(base_views.CreateCourseView.as_view(), login_url='login'), name='create-course'),
+    path('update-course/c_id=<int:course_id>', login_required(base_views.UpdateCourseView.as_view(), login_url='login'), name='update-course'),
     
 ]

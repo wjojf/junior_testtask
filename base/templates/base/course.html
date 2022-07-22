@@ -39,6 +39,11 @@
     <div class="course_title">
         <h3>{{course.title}}</h3>
         <p class="course-dates">{{course.start_date|date:"M d, Y"}} - {{course.end_date|date:"M d, Y"}}</p>
+        {% if request.user == course.host %}
+            <a href="{% url 'update-course' course.id %}">Edit Course</a>
+        {% else %}
+            <p></p>
+        {% endif %}
     </div>
     
     <div class="course-details">
