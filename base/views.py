@@ -1,4 +1,5 @@
 from datetime import datetime
+from pydoc import describe
 from django.views.generic.detail import DetailView
 from django.views.generic import FormView
 from django.views.generic.list import ListView
@@ -8,8 +9,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from base.models import Course, Participant
-from base.forms import ParticipantForm
-from django.db import models
+from base.forms import ParticipantForm, CourseCreationForm
 from django.db.models import Q 
 
 
@@ -102,4 +102,22 @@ class CourseView(DetailView, FormView):
             contact_email = request.POST.get('contact_email')
         )
             
+        return redirect('home')
+    
+    
+class CreateCourseView(FormView):
+    form_class = CourseCreationForm
+    template_name = 'base/create-course.html'
+    success_url = 'home'
+    
+    def post(self, request, *args, **kwargs):
+        
+        course, created = Course.objects.get_or_create(
+            title = request.POST.get('title'),
+            description=request.POST.get('description'),
+            host = request.user,
+            start_date = request.POST.get('start_date'),
+            end_date = request.POST.get('end_date')
+        )
+
         return redirect('home')

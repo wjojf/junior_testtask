@@ -1,5 +1,4 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from base import views as base_views
 from django.contrib.auth.decorators import login_required
 
@@ -16,5 +15,6 @@ urlpatterns = [
         base_views.CourseView.as_view(),
         name='course'
     ),
+    path('create-course/', login_required(base_views.CreateCourseView.as_view(), login_url='login'), name='create-course')
     
 ]

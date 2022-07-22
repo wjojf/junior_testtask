@@ -1,0 +1,84 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    #wrapper{
+        text-align: center;
+    }
+
+    .form__group label {
+        display: block;
+        font-size: 1.5rem;
+    }
+
+    .form__group input,
+    .form__group textarea,
+    .form__group select 
+    .form_group {
+        color: black;
+        border: 1px solid var(--color-dark-light);
+        border-radius: 5px;
+        padding: 1rem;
+        color: var(--color-light);
+        font-weight: 500;
+        outline: none;
+    }
+
+    .form__group input:focus,
+    .form__group textarea:focus {
+        border-color: var(--color-main);
+    }
+
+    .form__group textarea {
+        color: black;
+        height: 10rem;
+        resize: none;
+    }
+
+    .form__group input{
+        color: black;
+    }
+
+    #creation-form{
+        text-align: center;
+    }
+
+    #submit-button{
+        bottom: 0px;
+        border: none;
+        background-color: purple;
+        color: white;
+        border-radius: 10px;
+    }
+</style>
+
+
+<div class="wrapper">
+    <form action="" method="POST" id="creation-form">
+        {% csrf_token %}
+
+        <div class="form__group">
+            <label for="course_title">Course Title</label>
+            {{form.title}}
+        </div>
+
+        <div class="form__group">
+            <label for="course_description">Course Description</label>
+            {{form.description}}
+        </div>
+        
+        <div class="form__group">
+            <label for="course_start_date">Course Starts</label>
+            {{form.start_date}}
+        </div>
+        
+        <div class="form__group">
+            <label for="course_start_date">Course Ends</label>
+            {{form.end_date}}
+        </div>
+
+        <input type="submit" id="submit-button" value="Create Course">
+    </form>
+</div>
+{% endblock content %}

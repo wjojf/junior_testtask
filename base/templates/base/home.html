@@ -3,7 +3,7 @@
     
 <style>
 
-    .wrapper{
+    .courses-wrapper{
         display: grid;
         grid-template-columns: 2fr 3fr;
     }
@@ -23,9 +23,19 @@
         color: white;
     }
 
+    .create-course{
+        border: 2px solid;
+        border-radius: 20%;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        text-align: center;
+
+    }
+
 </style>
 
-<div class="wrapper">
+<div class="courses-wrapper">
     <div class="searchbar">
         <h1>Filter Courses</h1>
         <form class="search-input" action="{% url 'home' %}">
@@ -47,4 +57,12 @@
         {% endfor %}
     </div>
 </div>
+
+<div class="course-footer">
+    <div class="create-course">
+        <h3>Want to create your own course?</h3>
+        <a href="{% url 'create-course' %}">Create Course</a>
+    </div>
+</div>
+
 {% endblock content %}
