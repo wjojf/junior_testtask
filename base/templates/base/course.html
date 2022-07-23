@@ -41,6 +41,7 @@
         <p class="course-dates">{{course.start_date|date:"M d, Y"}} - {{course.end_date|date:"M d, Y"}}</p>
         {% if request.user == course.host %}
             <a href="{% url 'update-course' course.id %}">Edit Course</a>
+            <a href="{% url 'delete-course' course.id %}">Delete Course</a>
         {% else %}
             <p></p>
         {% endif %}

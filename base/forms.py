@@ -20,3 +20,4 @@ class CourseCreationForm(ModelForm):
     class Meta:
         model = Course
         exclude =['host']
+

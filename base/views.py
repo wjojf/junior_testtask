@@ -2,7 +2,7 @@ from datetime import datetime
 from django.views.generic.detail import DetailView
 from django.views.generic import FormView
 from django.views.generic.list import ListView
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -143,4 +143,15 @@ class UpdateCourseView(UpdateView):
         
         
     
+class CourseDeleteView(DeleteView):
+    model = Course 
+    template_name = 'base/delete-course.html'
+    pk_url_kwarg = 'course_id'
+    success_url = '/'
+    
+    def get(self, request, *args, **kwargs):
         
+        if request.user != self.get_object().host:
+            return HttpResponse('You are not the owner of the course')
+        
+        return super().get(request, *args, **kwargs)
